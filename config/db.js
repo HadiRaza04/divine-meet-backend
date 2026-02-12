@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ADMIN_EMAIL, ADMIN_PASSWORD, mongodb_uri } from '../env.js';
+import { ADMIN_EMAIL, ADMIN_PASSWORD, mongodb_uri, salt_rounds } from '../env.js';
 import User from "../models/UserModel.js";
 import bcrypt from 'bcrypt';
 
@@ -11,7 +11,7 @@ const seedAdmin = async () => {
 
         if (!existingAdmin) {
             // Hash the password before saving!
-            const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 10);
+            const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, salt_rounds);
 
             await User.create({
                 name: "System Admin",
