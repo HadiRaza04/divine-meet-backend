@@ -6,10 +6,11 @@ import { EventRouter } from './routes/EventRoute.js';
 import { MosqueRouter } from './routes/MosqueRoute.js';
 import { OrganizationRouter } from './routes/OrganizationRoute.js';
 import { CustomerRouter } from './routes/CustomerRoute.js';
-
+import cors from 'cors';
 const app = express();
 connectDB();
 app.use(express.json());
+app.use(cors("*"))
 app.use('/', UserRouter)
 app.use('/events', EventRouter);
 app.use('/mosque', MosqueRouter);
