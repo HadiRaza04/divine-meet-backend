@@ -7,11 +7,15 @@ import { MosqueRouter } from './routes/MosqueRoute.js';
 import { OrganizationRouter } from './routes/OrganizationRoute.js';
 import { CustomerRouter } from './routes/CustomerRoute.js';
 import cors from 'cors';
+import {AmeerRoute} from './routes/AmeerRoute.js';
 const app = express();
-connectDB();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors("*"))
+app.use("/uploads", express.static("uploads"));
+connectDB();
+app.use(cors());
 app.use('/', UserRouter)
+app.use('/ameer', AmeerRoute)
 app.use('/events', EventRouter);
 app.use('/mosque', MosqueRouter);
 app.use('/organization', OrganizationRouter);

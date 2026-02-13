@@ -27,19 +27,17 @@ const UserSchema = new mongoose.Schema({
         default: 'user'
 
     },
-    permissions: {
+    image: {
         type: String,
-        enum: ['list', 'view', 'create'],
-        default: 'list'
-
     },
+    // permissions: {
+    //     type: String,
+    //     enum: ['list', 'view', 'create'],
+    //     default: 'list'
+
+    // },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    role: {
-      type: String,
-      enum: ["admin", "user"],
-      default: "user",
-    }
 })
 const User = mongoose.model("User", UserSchema)
 export default User;
