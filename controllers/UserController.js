@@ -64,6 +64,21 @@ export const editPassword = async (req, res) => {
         });
     }
 }
+// export const editName = async (req, res) => {
+//     try {
+//         const { name } = req.body;
+//         const user = await User.findByIdAndUpdate(req.params.id, { name }, { new: true });
+//         if (!user) return res.status(404).json({ message: "User not found." });
+
+//         res.status(200).json({ success: true, message: "Name updated successfully.", user });
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Error updating name",
+//             error: error.message
+//         });
+//     }
+// }
 
 export const createUser = async (req, res) => {
     try {
@@ -125,7 +140,7 @@ export const Signin = async (req, res) => {
         if(!email || !password) return res.status(400).json({ message: "Email and password are required." });
         const user = await User.findOne({ email });
         if(!user) return res.status(400).json({ message: "User not registered."});
-        const isMatched = bcrypt.compare(password, user.password);
+        const isMatched = await bcrypt.compare(password, user.password);
         if(!isMatched) return res.status(400).json({ message: "Invalid password" });
 
         const token = jwt.sign(
@@ -208,7 +223,7 @@ export const ResetPassword = async (req, res) => {
             resetPasswordToken: hashedToken,
             resetPasswordExpires: { $gt: Date.now() } // $gt means "Greater Than"
         });
-
+        
         if (!user) {
             return res.status(400).json({ message: "Invalid or expired token." });
         }

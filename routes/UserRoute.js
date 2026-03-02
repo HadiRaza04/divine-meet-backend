@@ -10,10 +10,10 @@ const UserRouter = express.Router();
 UserRouter.post('/signup', Signup)
 UserRouter.post('/create-user', Protect, authorize('admin'), createUser)
 UserRouter.post('/signin', Signin)
-UserRouter.put('/edit-user/:id', Protect, editUser);
+UserRouter.put('/edit-user/:id', Protect, authorize('admin'), editUser);
 UserRouter.put('/edit-password/:id', Protect, editPassword);
-UserRouter.post('/reset-password', Protect, ForgotPassword)
 UserRouter.get('/all-users', Protect, authorize('admin'), getAllUsers)
+UserRouter.post('/reset-password', Protect, ForgotPassword)
 UserRouter.post('/reset-password/:token', Protect, ResetPassword)
 
 export default UserRouter;
